@@ -7,9 +7,26 @@ const expressServer = http.createServer(app);
 // create server with socket
 const { Server } = require("socket.io");
 const io = new Server(expressServer);
+
+// create socket Namespace
+let buyNsp = io.of("/buy");
+
+buyNsp.on("connection", () => {
+  buyNsp.emit("buyEvent", "thank for buy ");
+});
+
+let sellNsp = io.of("/sell");
+
+sellNsp.on("connection", () => {
+  sellNsp.emit("sellEvent", "thank for sell ");
+});
+
 // check socket connect or disconnect
 io.on("connection", (socket) => {
   console.log("new user connected");
+
+  // Broadcast for everyone
+  io.sockets.emit("MyBroadcast", "Hello Everyone!");
 
   //   // got data from user
   //   socket.on("message", (data) => {

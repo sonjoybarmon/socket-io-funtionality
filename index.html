@@ -7,7 +7,8 @@
     <title>My First Socket App</title>
   </head>
   <body>
-    <h1>hello world</h1>
+    <h1 id="msg"></h1>
+    <h1 id="msg1"></h1>
 
     <div>
       <input type="text" name="name" id="name" />
@@ -18,8 +19,12 @@
 
     <script src="/socket.io/socket.io.js"></script>
 
-    <script>
+    <!-- <script>
       let socket = io();
+
+      socket.on("MyBroadcast", (data) => {
+        document.getElementById("msg").innerHTML = data;
+      });
       //   function send() {
       //     let name = document.getElementById("name").value;
       //     socket.send(name);
@@ -28,7 +33,16 @@
         let name = document.getElementById("name").value;
         socket.emit("userData", name);
       }
+    </script> -->
+    <!-- Nameespace socket -->
+    <script>
+      let socket = io("/sell");
+
+      socket.on("sellEvent", (data) => {
+        document.getElementById("msg1").innerHTML = data;
+      });
     </script>
+
     <!-- <script>
       let socket = io();
       //   custom event
